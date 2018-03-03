@@ -1,4 +1,4 @@
-const config = {
+module.exports = {
   templates: [
     {
       name: 'The best repo',
@@ -12,5 +12,3 @@ const config = {
     }
   ]
 }
-
-module.exports = { config }
