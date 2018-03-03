@@ -55,57 +55,11 @@ async function initialPrompt(opts) {
     ])
     pathToDestination = res.pathToDestination
   }
-  console.log('opts', {
-    pathToRepo,
-    pathToDestination
-  })
 
-  return {
-    pathToRepo,
-    pathToDestination
-  }
-  /*   
-      {
-              name: 'pathToDestination',
-              message: 'Destination folder',
-              type: 'input'
-            }
-    
-    
-    .then(qs => {
-      if (qs.pathToRepo === 'custom') {
-        return inquirer
-          .prompt([
-            {
-              name: 'customPathToRepo',
-              message: 'Custom path:',
-              type: 'input'
-            }
-          ])
-          .then(nq => Object.assign({}, qs, nq, { path: nq.customPathToRepo }))
-          .catch(err => Error(err))
-      }
-      return Object.assign({}, qs, { path: qs.pathToRepo }) */
+  return { pathToRepo, pathToDestination }
 }
 
 let templateCfg = {}
-
-// try {
-//   initialPrompt(opts)
-//     .then(parameters => {
-//       cloneRepo(parameters.pathToRepo, TEMP_PATH).catch(console.error)
-//       return parameters
-//     })
-//     .then(parameters => {
-//       templateCfg = require(path.join(__dirname, TEMP_PATH, 'config.js')).config
-//       return getData(templateCfg)
-//     })
-//     .then(data => copyAndDelete('./__init/', './__real', data))
-//     .then(_ => runHooks(templateCfg, dir))
-//     .catch(console.error)
-// } catch (err) {
-//   console.error(err)
-// }
 
 async function main() {
   try {
