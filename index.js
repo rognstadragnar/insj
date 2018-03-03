@@ -48,7 +48,7 @@ async function initialPrompt(opts) {
   }
   if (!pathToDestination) {
     console.log(chalk.yellow('Warning:'), 'Path to destination folder is empty')
-    console.log('Do' you really want to use this folder as destination?')
+    console.log('Do you really want to use this folder as destination?')
     console.log('Continuing may result in overwriting existing files')
     const res = await inquirer.prompt([
       {
