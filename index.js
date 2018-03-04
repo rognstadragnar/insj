@@ -71,7 +71,7 @@ async function main() {
     const { templateCfg, isTemplate } = getConfig(path.join(TEMP_PATH, 'config.js'));
     const data = isTemplate ? await getData(templateCfg) : {};
     await copyAndDelete(TEMP_PATH, pathToDestination, data, isTemplate);
-    await runHooks(templateCfg, pathToDestination);
+    await runHooks(templateCfg, path.resolve(ROOT_PATH, pathToDestination));
     console.log('\nGo to your project by running');
     console.log(chalk.cyan(`\n\tcd ${pathToDestination}\t`));
     console.log();
