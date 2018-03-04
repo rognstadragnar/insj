@@ -8,7 +8,7 @@
     {
       "name": "Some other repo",
       "value": "https://github.com/rognstadragnar/mehdux",
-      "isDefault": false
+      "isDefault": true
     }
   ]
 }
