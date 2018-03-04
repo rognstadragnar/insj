@@ -22,6 +22,7 @@ opts
 const ROOT_PATH = process.cwd();
 const TEMP_PATH = path.join(ROOT_PATH, '.tmp');
 const choices = Array.from(config.templates);
+choices.map(choice => Object.assign(choice, { name: `${choice.name} (${choice.value})` }));
 choices.sort((a, b) => b.isDefault);
 choices.push({ name: 'Custom', value: 'custom' });
 
