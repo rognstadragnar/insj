@@ -7,18 +7,32 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"
   },
-  "keywords": ["Project scaffolding"],
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "bin": {
+    "insj": "./index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rognstadragnar/insj.git"
+  },
+  "keywords": [
+    "Project scaffolding"
+  ],
   "author": "Ragnar Rognstad (http://rognstad.me)",
   "license": "MIT",
-  "dependencies": {
-    "chalk": "^2.3.2",
-    "commander": "^2.14.1",
-    "del": "^3.0.0",
+  "devDependencies": {
     "eslint": "^4.18.2",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.9.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
-    "eslint-plugin-react": "^7.7.0",
+    "eslint-plugin-react": "^7.7.0"
+  },
+  "dependencies": {
+    "chalk": "^2.3.2",
+    "commander": "^2.14.1",
+    "del": "^3.0.0",
     "execa": "^0.9.0",
     "gittar": "^0.1.0",
     "graceful-copy": "^1.1.0",
