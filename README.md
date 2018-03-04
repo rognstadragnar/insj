@@ -1,8 +1,6 @@
 <div align="center">
-  <h1 style="border-bottom:none">Insj</h1>
-  <img src="https://raw.githubusercontent.com/rognstadragnar/insj/master/insj.gif" alt="How to use insj "> 
-  <p><i>A no excuses project scaffolding tool.</i></p>
-  <p>Coming to an <b>npm</b> near you soon.™</p>
+  <img width="200" src="https://raw.githubusercontent.com/rognstadragnar/insj/master/insj.png" alt="Insj"> 
+  <p>A <b>no excuses</b> project scaffolding tool.</i></p>
 </div>
 
 ## Motivation
