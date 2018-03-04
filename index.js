@@ -11,7 +11,7 @@ const { getData } = require('./lib/get-data')
 const { runHooks } = require('./lib/run-hooks')
 const { prompt } = require('./lib/prompt')
 const { initialPrompt } = require('./lib/initial-prompt')
-const { addRepo } = require('./lib/add-repo.js')
+const { addTemplate } = require('./lib/add-template.js')
 opts
   .version(pkg.version, '-v, --version')
   .option('-r, --repo <r>')
@@ -57,7 +57,7 @@ function throwIfNotClean(rootPath, pathToDestination, opts) {
 
 async function main() {
   if (opts.add) {
-    await addRepo(opts.add, config, path.resolve(__dirname, 'config.json'))
+    await addTemplate(opts.add, config, path.resolve(__dirname, 'config.json'))
     process.exit(0)
   }
   try {
