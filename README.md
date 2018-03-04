@@ -39,13 +39,13 @@ Template file structure looks like this:
     + -- # code goes here
 ```
 
-The config file can contain an array of `properties` and an array of `hooks` (aka terminal commands).
+The config file can contain an array of `properties` and an array of `postInstall`-commands (aka terminal commands).
 
 ```Javascript
 // Example config
 module.exports = {
   properties: ['name', 'description'],
-  hooks: ['git init', 'npm install']
+  postInstall: ['git init', 'npm install']
 }
 ```
 
@@ -53,7 +53,7 @@ The user user will be asked for the 'properties' at project initiation, so `insj
 
 `insj` uses the [handlebarjs](handlebarsjs.com) template syntax. This means that every instance of `{{ name }}` will be replaced with the user entered name value.
 
-The `hooks` will be ran after the project has been initiated. In the example config `git init` and `npm install` will be ran after `insj` has completed the setup.
+The `postInstall`-commands will be ran after the project has been initiated. In the example config `git init` and `npm install` will be ran after `insj` has completed the setup.
 
 Example template: [module-starter](https://github.com/rognstadragnar/module-starter)
 
