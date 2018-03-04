@@ -1,6 +1,6 @@
 {
   "name": "insj",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A no excuses project scaffolding tool",
   "main": "index.js",
   "scripts": {
@@ -17,7 +17,9 @@
     "type": "git",
     "url": "https://github.com/rognstadragnar/insj.git"
   },
-  "keywords": ["Project scaffolding"],
+  "keywords": [
+    "Project scaffolding"
+  ],
   "author": "Ragnar Rognstad (http://rognstad.me)",
   "license": "MIT",
   "devDependencies": {
