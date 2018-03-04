@@ -1,69 +1,30 @@
 const opts = require('commander')
 const inquirer = require('inquirer')
 const chalk = require('chalk')
-const fs = require('fs')
 const path = require('path')
 const pkg = require('./package.json')
-const config = require('./config')
+const config = require('./config.json')
 const { cloneRepo } = require('./lib/clone')
 const { rename } = require('./lib/rename')
-const { copyAndDelete } = require('./lib/copy-and-del')
+const { copyAndDelete, deleteTemp } = require('./lib/copy-and-del')
 const { getData } = require('./lib/get-data')
 const { runHooks } = require('./lib/run-hooks')
 const { prompt } = require('./lib/prompt')
-
+const { initialPrompt } = require('./lib/initial-prompt')
+const { addRepo } = require('./lib/add-repo.js')
 opts
   .version(pkg.version, '-v, --version')
   .option('-r, --repo <r>')
   .option('-d, --dest <d>')
   .option('-f, --force')
+  .option('-a, --add [name]')
   .parse(process.argv)
 
 const ROOT_PATH = process.cwd()
-const TEMP_PATH = '.tmp'
+const TEMP_PATH = path.join(ROOT_PATH, '.tmp')
 const choices = Array.from(config.templates)
+choices.sort((a, b) => b.isDefault)
 choices.push({ name: 'Custom', value: 'custom' })
-
-async function initialPrompt(opts) {
-  let pathToRepo = opts.repo
-  let pathToDestination = opts.dest
-  if (!pathToRepo) {
-    const res = await prompt({
-      name: 'pathToRepo',
-      value: 'repository name',
-      choices
-    })
-    pathToRepo = res.pathToRepo
-  }
-  if (pathToRepo === 'custom') {
-    const res = await prompt({ name: 'pathToRepo', value: 'repository name' })
-    pathToRepo = res.pathToRepo
-  }
-  if (!opts.dest) {
-    const res = await prompt({
-      name: 'pathToDestination',
-      value: 'destination folder name'
-    })
-    pathToDestination = res.pathToDestination
-  }
-  if (!pathToDestination) {
-    console.log(chalk.yellow('Warning:'), 'Path to destination folder is empty')
-    console.log('Do you really want to use this folder as destination?')
-    console.log('Continuing may result in overwriting existing files')
-    const res = await inquirer.prompt([
-      {
-        name: 'confirmDestination',
-        message: 'Are you sure you want to continue?',
-        type: 'confirm'
-      }
-    ])
-    if (res.confirmDestination) {
-      console.log(chalk.cyan('    This feature is a TODO'))
-    }
-    throw Error()
-  }
-  return { pathToRepo, pathToDestination }
-}
 
 function getConfig(pathToCfg) {
   try {
@@ -95,9 +56,14 @@ function throwIfNotClean(rootPath, pathToDestination, opts) {
 }
 
 async function main() {
+  if (opts.add) {
+    await addRepo(opts.add, config, path.resolve(__dirname, 'config.json'))
+    process.exit(0)
+  }
   try {
-    const { pathToDestination, pathToRepo } = await initialPrompt(opts)
+    const { pathToDestination, pathToRepo } = await initialPrompt(opts, choices)
     throwIfNotClean(ROOT_PATH, pathToDestination, opts)
+    await deleteTemp(TEMP_PATH)
     await cloneRepo(pathToRepo, TEMP_PATH)
     const { templateCfg, isTemplate } = getConfig(
       path.join(__dirname, TEMP_PATH, 'config.js')
@@ -105,10 +71,9 @@ async function main() {
     const data = isTemplate ? await getData(templateCfg) : {}
     await copyAndDelete(TEMP_PATH, pathToDestination, data, isTemplate)
     await runHooks(templateCfg, pathToDestination)
-    console.log('Completed')
+    console.log('\nGo to your project by running')
+    console.log(chalk.cyan(`\n\tcd ${pathToDestination}\t`))
     console.log()
-    console.log('Destination folder can be found by running')
-    console.log(`   cd ${pathToDestination}`)
   } catch (err) {
     if (err.message) console.error(err.message)
     process.exit(0)
