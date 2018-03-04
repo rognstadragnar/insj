@@ -1,5 +1,5 @@
 <div align="center">
-  <img width="200" src="https://raw.githubusercontent.com/rognstadragnar/insj/master/insj.png" alt="Insj"> 
+  <img width="200" src="https://raw.githubusercontent.com/rognstadragnar/insj/master/logo.png" alt="Insj"> 
   <p>A <b>no excuses</b> project scaffolding tool.</i></p>
 </div>
 
