@@ -1,19 +1,18 @@
 {
-  "name": "command-line",
-  "version": "1.0.0",
-  "description": "",
+  "name": "insj",
+  "version": "0.1.0",
+  "description": "A no excuses project scaffolding tool",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": ["Project scaffolding"],
+  "author": "Ragnar Rognstad (http://rognstad.me)",
+  "license": "MIT",
   "dependencies": {
     "chalk": "^2.3.2",
     "commander": "^2.14.1",
-    "cpy": "^6.0.0",
-    "degit": "^2.0.2",
     "del": "^3.0.0",
     "eslint": "^4.18.2",
     "eslint-config-airbnb": "^16.1.0",
@@ -24,7 +23,6 @@
     "gittar": "^0.1.0",
     "graceful-copy": "^1.1.0",
     "inquirer": "^5.1.0",
-    "listr": "^0.13.0",
-    "replace": "^0.3.0"
+    "listr": "^0.13.0"
   }
 }
