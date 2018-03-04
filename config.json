@@ -3,12 +3,12 @@
     {
       "name": "Some repo",
       "value": "rognstadragnar/module-starter",
-      "isDefault": false
+      "isDefault": true
     },
     {
       "name": "Some other repo",
       "value": "https://github.com/rognstadragnar/mehdux",
-      "isDefault": true
+      "isDefault": false
     }
   ]
 }
