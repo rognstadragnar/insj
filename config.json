@@ -1,14 +1,3 @@
 {
-  "templates": [
-    {
-      "name": "Some repo",
-      "value": "rognstadragnar/module-starter",
-      "isDefault": true
-    },
-    {
-      "name": "Some other repo",
-      "value": "https://github.com/rognstadragnar/mehdux",
-      "isDefault": false
-    }
-  ]
+  "templates": []
 }
