@@ -11,7 +11,7 @@ const { copyAndDelete, deleteTemp } = require('./lib/copy-and-del');
 const { getData } = require('./lib/get-data');
 const { runPostInstall } = require('./lib/run-post-install');
 const { initialPrompt } = require('./lib/initial-prompt');
-const { addTemplate } = require('./lib/add-template.js');
+const { addTemplate, addTemplateAfter } = require('./lib/add-template.js');
 
 opts
   .version(pkg.version, '-v, --version')
@@ -64,7 +64,7 @@ async function main() {
     process.exit(0);
   }
   try {
-    const { pathToDestination, pathToRepo } = await initialPrompt(opts, choices);
+    const { pathToDestination, pathToRepo, isNewRepo } = await initialPrompt(opts, choices);
     throwIfNotClean(ROOT_PATH, pathToDestination, opts);
     await deleteTemp(TEMP_PATH);
     await cloneRepo(pathToRepo, TEMP_PATH);
@@ -73,6 +73,9 @@ async function main() {
     await copyAndDelete(TEMP_PATH, pathToDestination, data, isTemplate);
     console.log();
     await runPostInstall(templateCfg, path.resolve(ROOT_PATH, pathToDestination));
+    if (isNewRepo) {
+      await addTemplateAfter(pathToRepo, config, path.resolve(__dirname, 'config.json'));
+    }
     console.log('\nGo to your project by running');
     console.log(chalk.cyan(`\n\tcd ${pathToDestination}\t`));
     console.log();
