@@ -1,3 +1,14 @@
 {
-  "templates": []
+  "templates": [
+    {
+      "value": "rognstadragnar/module-starter",
+      "name": "my template name (rognstadragnar/module-starter)",
+      "isDefault": false
+    },
+    {
+      "value": "rognstadragnar/module-starter#feature/new-cfg",
+      "name": "Super template",
+      "isDefault": true
+    }
+  ]
 }

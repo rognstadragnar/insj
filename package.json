@@ -36,6 +36,7 @@
     "gittar": "^0.1.0",
     "graceful-copy": "^1.1.0",
     "inquirer": "^5.1.0",
-    "listr": "^0.13.0"
+    "listr": "^0.13.0",
+    "prompts": "^0.1.6"
   }
 }

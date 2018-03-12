@@ -1,0 +1,31 @@
+{
+  "name": "Error",
+  "description": "",
+  "author": "Ragnar Rognstad (http://rognstad.me)",
+  "repository": "rognstadragnar/module-starter",
+  "license": "MIT",
+  "version": "0.0.1",
+  "source": "src/main.ts",
+  "main": "dist/module-starter.js",
+  "module": "dist/module-starter.esm.js",
+  "browser": "dist/module-starter.umd.js",
+  "devDependencies": {
+    "microbundle": "^0.4.3",
+    "prettier": "^1.10.2",
+    "rimraf": "^2.6.2",
+    "tslint": "^5.9.1",
+    "tslint-config-prettier": "^1.8.0"
+  },
+  "peerDependencies": {},
+  "scripts": {
+    "release":
+      "npm run build && git commit -am $npm_package_version && git tag $npm_package_version && git push && git push --tags && npm publish",
+    "bundle:main": "microbundle",
+    "dev:main": "microbundle watch --compress false",
+    "prepare": "npm run build",
+    "build": "npm run clean && npm run bundle:main",
+    "clean": "rimraf dist",
+    "test": "echo 'should add some tests.. :)'"
+  },
+  "files": ["src", "dist"]
+}

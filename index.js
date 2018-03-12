@@ -6,6 +6,8 @@ const path = require('path');
 const fs = require('fs');
 const pkg = require('./package.json');
 const config = require('./config.json');
+const { promisify } = require('util');
+const exec = promisify(require('child_process').exec);
 const { cloneRepo } = require('./lib/clone');
 const { copyAndDelete, deleteTemp } = require('./lib/copy-and-del');
 const { getData } = require('./lib/get-data');
@@ -28,11 +30,14 @@ choices.map(choice => Object.assign(choice, { name: `${choice.name} (${choice.va
 choices.sort((a, b) => b.isDefault);
 choices.push({ name: 'Custom', value: 'custom' });
 
-function getConfig(pathToCfg) {
+async function getConfig(pathToCfg) {
   try {
+    const user = {};
+    user.name = await exec('git config user.name').then(({ stdout }) => stdout.split('\n')[0]);
+    user.email = await exec('git config user.email').then(({ stdout }) => stdout.split('\n')[0]);
     return {
       // eslint-disable-next-line global-require, import/no-dynamic-require
-      templateCfg: require(pathToCfg),
+      templateCfg: require(pathToCfg)(user, chalk),
       isTemplate: true,
     };
   } catch (err) {
@@ -65,17 +70,20 @@ async function main() {
   }
   try {
     const { pathToDestination, pathToRepo, isNewRepo } = await initialPrompt(opts, choices);
+
     throwIfNotClean(ROOT_PATH, pathToDestination, opts);
     await deleteTemp(TEMP_PATH);
     await cloneRepo(pathToRepo, TEMP_PATH);
-    const { templateCfg, isTemplate } = getConfig(path.join(TEMP_PATH, 'config.js'));
+    const { templateCfg, isTemplate } = await getConfig(path.join(TEMP_PATH, 'config.js'));
     const data = isTemplate ? await getData(templateCfg) : {};
     await copyAndDelete(TEMP_PATH, pathToDestination, data, isTemplate);
     console.log();
     await runPostInstall(templateCfg, path.resolve(ROOT_PATH, pathToDestination));
+
     if (isNewRepo) {
       await addTemplateAfter(pathToRepo, config, path.resolve(__dirname, 'config.json'));
     }
+
     console.log('\nGo to your project by running');
     console.log(chalk.cyan(`\n\tcd ${pathToDestination}\t`));
     console.log();
