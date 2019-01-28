@@ -57,9 +57,8 @@ module.exports = async function insj(opts) {
   console.log(`\n\n\t\t${chalk.gray(`insj (${pkg.version})`)}\n\n`)
 
   const options = Object.assign({}, defaultOptions, opts)
-  const { pathToDestination: nonRelative, pathToRepo, isNewRepo, force, rp } = options
-  const pathToDestination = path.relative(__dirname, nonRelative)
-  console.log({ pathToDestination })
+  const { pathToDestination, pathToRepo, isNewRepo, force, rp } = options
+
   try {
     if (!force) {
       throwIfNotClean(ROOT_PATH, pathToDestination, opts);
