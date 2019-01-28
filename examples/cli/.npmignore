@@ -1,7 +1,6 @@
-.vscode
 .idea
 node_modules
-examples
 *.log
 .DS_Store
-insj.gif
+!**/dist
+.rpt2_cache

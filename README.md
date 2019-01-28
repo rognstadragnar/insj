@@ -21,6 +21,10 @@ Simply install `insj` globally from `npm`:
 
 ```sh
 npm install insj --global
+
+# or
+
+npx insj <options>
 ```
 
 and then simply run `insj` like so:
@@ -30,6 +34,18 @@ and then simply run `insj` like so:
 </div>
 
 If the repository you choose isn't a valid `insj`-template it will simply be cloned into your chosen folder.
+
+### Node API
+
+```js
+const insj = require('insj')
+const path = require('path')
+
+insj({
+  pathToDestination: path.resolve(__dirname, 'example'),
+  pathToRepo: 'rognstadragnar/module-starter'
+})
+```
 
 #### Creating templates
 

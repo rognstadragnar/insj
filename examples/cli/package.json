@@ -1,0 +1,36 @@
+{
+  "name": "name",
+  "description": "desc",
+  "author": "Ragnar Rognstad (http://rognstad.me)",
+  "repository": "rognstadragnar/name",
+  "license": "MIT",
+  "version": "0.0.1",
+  "source": "src/index.ts",
+  "main": "dist/name.js",
+  "module": "dist/name.esm.js",
+  "browser": "dist/name.umd.js",
+  "devDependencies": {
+    "@types/chai": "^4.1.3",
+    "@types/mocha": "^5.2.0",
+    "chai": "^4.1.2",
+    "microbundle": "^0.4.4",
+    "mocha": "^5.1.1",
+    "prettier": "^1.10.2",
+    "rimraf": "^2.6.2",
+    "ts-node": "^6.0.3",
+    "tslint": "^5.9.1",
+    "tslint-config-prettier": "^1.8.0"
+  },
+  "peerDependencies": {},
+  "scripts": {
+    "release":
+      "npm run build && git commit -am $npm_package_version && git tag $npm_package_version && git push && git push --tags && npm publish",
+    "bundle": "microbundle",
+    "dev": "microbundle watch --compress false",
+    "prepare": "npm run build",
+    "build": "npm run clean && npm run bundle",
+    "clean": "rimraf dist",
+    "test": "mocha -r ts-node/register __tests__/**/*.spec.ts"
+  },
+  "files": ["src", "dist"]
+}
