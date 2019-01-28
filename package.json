@@ -1,6 +1,6 @@
 {
   "name": "insj",
-  "version": "0.1.5",
+  "version": "1.0.0-0",
   "description": "A no excuses project scaffolding tool",
   "main": "index.js",
   "scripts": {
