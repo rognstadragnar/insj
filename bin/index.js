@@ -6,8 +6,8 @@ const pkg = require('../package.json');
 const config = require('../config.json');
 const { initialPrompt } = require('../lib/initial-prompt');
 const { addTemplate } = require('../lib/add-template.js');
-const insj = require('../lib/index')
-console.log({ insj })
+const insj = require('../index')
+
 opts
   .version(pkg.version, '-v, --version')
   .option('-r, --repo <r>')
@@ -32,7 +32,7 @@ async function main() {
     const { pathToDestination, pathToRepo, isNewRepo } = await initialPrompt(opts, choices);
     insj({
       ...opts,
-      pathToDestination: path.resolve(process.cwd(), pathToDestination),
+      pathToDestination,
       pathToRepo,
       isNewRepo
     })

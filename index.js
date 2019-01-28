@@ -4,6 +4,7 @@ const chalk = require('chalk');
 const path = require('path');
 const fs = require('fs');
 const config = require('./config.json');
+const pkg = require('./package.json');
 const { cloneRepo } = require('./lib/clone');
 const { copyAndDelete, deleteTemp } = require('./lib/copy-and-del');
 const { getData } = require('./lib/get-data');
@@ -53,9 +54,12 @@ const defaultOptions = {
 }
 
 module.exports = async function insj(opts) {
-  const options = Object.assign({}, defaultOptions, opts)
-  const { pathToDestination, pathToRepo, isNewRepo, force, rp } = options
+  console.log(`\n\n\t\t${chalk.gray(`insj (${pkg.version})`)}\n\n`)
 
+  const options = Object.assign({}, defaultOptions, opts)
+  const { pathToDestination: nonRelative, pathToRepo, isNewRepo, force, rp } = options
+  const pathToDestination = path.relative(__dirname, nonRelative)
+  console.log({ pathToDestination })
   try {
     if (!force) {
       throwIfNotClean(ROOT_PATH, pathToDestination, opts);

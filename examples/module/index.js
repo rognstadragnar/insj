@@ -1,4 +1,4 @@
-const insj = require('../../lib/index')
+const insj = require('../../index')
 const path = require('path')
 
 insj({
